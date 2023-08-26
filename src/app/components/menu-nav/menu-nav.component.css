@@ -1,0 +1,15 @@
+.menu-card{
+    width: 100%;
+    border-radius: 30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: bold;
+}
+.menu-card:hover{
+    background-color: rgb(220, 220, 220);
+    cursor: pointer;
+}
+.separator{
+    font-size: larger;
+    font-weight: bold;
+}

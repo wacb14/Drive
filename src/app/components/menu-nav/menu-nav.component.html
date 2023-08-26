@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row py-4">
+    <div class="col-2 text-center">
+      <div class="menu-card" (click)="changePath(-1)">Mi unidad</div>
+    </div>
+    <div *ngIf="path.length > 0" class="col-10">
+      <div class="row">
+        <div class="col-3" *ngFor="let item of path; let i = index">
+          <div class="row">
+            <div class="col-3 text-center separator">
+              {{ ">" }}
+            </div>
+            <div class="col-9 text-center">
+              <div class="menu-card" (click)="changePath(i)">{{ item }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

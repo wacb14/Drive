@@ -1,0 +1,18 @@
+import { EventEmitter, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.dev';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class FileService {
+  updatePath =  new EventEmitter<string>();
+  updateFilesList =  new EventEmitter<string>();
+  constructor(private http: HttpClient) {}
+  GetFolderContent(folderPath: string): Observable<any> {
+    return this.http.get<any>(
+      environment.apiURL + '/File/GetFolderContent?folderPath=' + folderPath
+    );
+  }
+}

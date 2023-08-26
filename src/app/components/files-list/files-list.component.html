@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row" *ngFor="let file of filesList; let i = index">
+    <div
+      class="col-12"
+      [ngClass]="{ folder: isFolder(file) }"
+      (click)="navigateToFolder(i)"
+    >
+      <div class="row">
+        <div class="col">{{ file.name }}</div>
+        <div class="col">{{ file.extension }}</div>
+        <div class="col">{{ file.creationDate }}</div>
+        <div class="col">{{ file.modificationDate }}</div>
+      </div>
+    </div>
+  </div>
+</div>
