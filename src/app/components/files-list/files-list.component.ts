@@ -22,43 +22,44 @@ export class FilesListComponent implements OnInit {
   updateMenuNav() {
     this.fileService.updatePath.emit(this.folderPath);
   }
-  fileOrFolder(name: string) {
-    let index = name.indexOf('.dir');
-    if (index == -1) return ItemType.File;
-    else return ItemType.Folder;
+  // Verifies if the name of file and returns it's Item object
+  fileOrFolder(item: string) {
+    let index = item.indexOf('.dir');
+    let itemMod: Item;
+    if (index == -1) {
+      let index = this.lookForItemInfoByName(item);
+      itemMod = new Item(
+        this.filesInfo[index].name,
+        ItemType.File,
+        this.filesInfo[index].id,
+        this.filesInfo[index].extension,
+        this.filesInfo[index].folderPath,
+        new Date(this.filesInfo[index].creationDate),
+        new Date(this.filesInfo[index].modificationDate)
+      );
+    } else {
+      let name = item.split('.dir')[0];
+      itemMod = new Item(
+        name,
+        ItemType.Folder,
+        0,
+        '',
+        '',
+        new Date('2023-08-26T03:48:06.526'),
+        new Date('2023-08-26T03:49:06.527')
+      );
+    }
+    return itemMod;
   }
   updateFilesList() {
     this.fileService.GetFolderContent(this.folderPath).subscribe((res) => {
+      // Always go first
       this.filesInfo = res.files;
       this.filesList = [];
-      for (const item of res.content) {
-        if (this.fileOrFolder(item) == ItemType.Folder) {
-          let name = item.split('.dir')[0];
-          let itemMod = new Item(
-            name,
-            ItemType.Folder,
-            0,
-            '',
-            '',
-            new Date('2023-08-26T03:48:06.526'),
-            new Date('2023-08-26T03:49:06.527')
-          );
-          this.filesList.push(itemMod);
-        } else {
-          let index = this.lookForItemInfoByName(item);
-          if (index != -1) {
-            let itemMod = new Item(
-              this.filesInfo[index].name,
-              ItemType.File,
-              this.filesInfo[index].id,
-              this.filesInfo[index].extension,
-              this.filesInfo[index].folderPath,
-              new Date(this.filesInfo[index].creationDate),
-              new Date(this.filesInfo[index].modificationDate)
-            );
-            this.filesList.push(itemMod);
-          }
-        }
+
+      for (const element of res.content) {
+        let item = this.fileOrFolder(element);
+        this.filesList.push(item!);
       }
       this.updateMenuNav();
     });
@@ -86,5 +87,16 @@ export class FilesListComponent implements OnInit {
       this.folderPath = this.folderPath + '\\' + this.filesList[i].name;
       this.updateFilesList();
     }
+  }
+  navigatePreviusFolder() {
+    let pathComplete = this.folderPath.split('\\');
+    let newPath = '';
+    for (let i = 0; i < pathComplete.length - 1; i++) {
+      if (i == 0) newPath += pathComplete[i];
+      else newPath += '\\' + pathComplete[i];
+    }
+    this.folderPath = newPath;
+    console.log(this.folderPath);
+    this.updateFilesList();
   }
 }

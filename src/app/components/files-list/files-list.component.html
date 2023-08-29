@@ -1,15 +1,41 @@
 <div class="container">
+  <div class="row">
+    <div class="col fw-bold py-3 bg-light"></div>
+    <div class="col fw-bold py-3 bg-light">Name</div>
+    <div class="col fw-bold py-3 bg-light">Type</div>
+    <div class="col fw-bold py-3 bg-light">Creation Date</div>
+    <div class="col fw-bold py-3 bg-light">Modification Date</div>
+  </div>
+  <div class="row" (click)="navigatePreviusFolder()">
+    <div class="col fw-bold text-center fs-5 line folder">...</div>
+  </div>
   <div class="row" *ngFor="let file of filesList; let i = index">
     <div
-      class="col-12"
-      [ngClass]="{ folder: isFolder(file) }"
+      class="col-12 line"
+      [ngClass]="{ 'folder': isFolder(file) }"
       (click)="navigateToFolder(i)"
     >
       <div class="row">
+        <div class="col text-center">
+          <i class="bi bi-folder-fill" *ngIf="isFolder(file)"></i>
+          <i class="bi bi-file-earmark" *ngIf="!isFolder(file)"></i>
+        </div>
         <div class="col">{{ file.name }}</div>
         <div class="col">{{ file.extension }}</div>
-        <div class="col">{{ file.creationDate }}</div>
-        <div class="col">{{ file.modificationDate }}</div>
+        <div class="col">
+          {{
+            file.creationDate.toLocaleDateString() +
+              " - " +
+              file.creationDate.toLocaleTimeString()
+          }}
+        </div>
+        <div class="col">
+          {{
+            file.modificationDate.toLocaleDateString() +
+              " - " +
+              file.modificationDate.toLocaleTimeString()
+          }}
+        </div>
       </div>
     </div>
   </div>

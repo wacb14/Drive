@@ -1,4 +1,7 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 .folder:hover{
-    background-color: rgb(207, 207, 207);
     cursor: pointer;
+}
+.line:hover{
+    background-color: rgb(207, 207, 207);
 }
