@@ -7,12 +7,15 @@ import { environment } from 'src/environments/environment.dev';
   providedIn: 'root',
 })
 export class FileService {
-  updatePath =  new EventEmitter<string>();
-  updateFilesList =  new EventEmitter<string>();
+  updatePath = new EventEmitter<string>();
+  updateFilesList = new EventEmitter<string>();
   constructor(private http: HttpClient) {}
   GetFolderContent(folderPath: string): Observable<any> {
     return this.http.get<any>(
       environment.apiURL + '/File/GetFolderContent?folderPath=' + folderPath
     );
+  }
+  PostFile(fileInfo: FormData): Observable<any> {
+    return this.http.post<any>(environment.apiURL + '/File/PostFile', fileInfo);
   }
 }

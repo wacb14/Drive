@@ -1,5 +1,61 @@
 <div class="container">
   <div class="row">
+    <div class="col-1 text-start">
+      <div class="dropdown">
+        <button
+          type="button"
+          class="btn btn-primary fw-bold dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="bi bi-plus"></i> New
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Directory</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-1 text-start">
+      <div class="dropdown">
+        <button
+          type="button"
+          class="btn btn-secondary fw-bold dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="bi bi-arrow-bar-up"></i> Load
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" (click)="openInputFile(inputFile)"
+              >Files</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" (click)="openInputFile(inputFileDirectory)"
+              >Directory</a
+            >
+          </li>
+        </ul>
+      </div>
+      <input
+        type="file"
+        class="hidden"
+        #inputFile
+        multiple
+        (change)="captureFiles($event)"
+      />
+      <input
+        type="file"
+        class="hidden"
+        #inputFileDirectory
+        multiple
+        webkitdirectory
+        (change)="captureDirectory($event)"
+      />
+    </div>
+  </div>
+  <div class="row">
     <div class="col fw-bold py-3 bg-light"></div>
     <div class="col fw-bold py-3 bg-light">Name</div>
     <div class="col fw-bold py-3 bg-light">Type</div>
@@ -12,7 +68,7 @@
   <div class="row" *ngFor="let file of filesList; let i = index">
     <div
       class="col-12 line"
-      [ngClass]="{ 'folder': isFolder(file) }"
+      [ngClass]="{ folder: isFolder(file) }"
       (click)="navigateToFolder(i)"
     >
       <div class="row">

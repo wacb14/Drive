@@ -11,7 +11,10 @@ export class FilesListComponent implements OnInit {
   folderPath = 'elefantes\\elefante1';
   filesList: Array<Item> = [];
   filesInfo: Array<any> = [];
+  uploadedFiles: Array<File> = [];
+
   constructor(private fileService: FileService) {}
+
   ngOnInit(): void {
     this.updateFilesList();
     this.fileService.updateFilesList.subscribe((path) => {
@@ -38,7 +41,7 @@ export class FilesListComponent implements OnInit {
         new Date(this.filesInfo[index].modificationDate)
       );
     } else {
-      let name = item.split('.dir')[0];
+      let name = item.replace('.dir', '');
       itemMod = new Item(
         name,
         ItemType.Folder,
@@ -96,7 +99,52 @@ export class FilesListComponent implements OnInit {
       else newPath += '\\' + pathComplete[i];
     }
     this.folderPath = newPath;
-    console.log(this.folderPath);
     this.updateFilesList();
+  }
+  openInputFile(fileInput: HTMLInputElement) {
+    fileInput.click();
+  }
+  captureFiles(event: any) {
+    this.uploadedFiles = event.target.files;
+    for (let i = 0; i < this.uploadedFiles.length; i++) {
+      let data = new FormData();
+      data.append('id', '0');
+      data.append('folderPath', this.folderPath);
+      data.append('creationDate', new Date(Date.now()).toISOString());
+      data.append('modificationDate', new Date(Date.now()).toISOString());
+      data.append('file', this.uploadedFiles[i]);
+      this.fileService.PostFile(data).subscribe((res) => {
+        this.filesInfo.push(res);
+        // Update the local data when the last file has been uploaded
+        if (i == this.uploadedFiles.length - 1) {
+          this.uploadedFiles = [];
+          this.updateFilesList();
+        }
+      });
+    }
+  }
+  captureDirectory(event: any) {
+    this.uploadedFiles = event.target.files;
+    for (let i = 0; i < this.uploadedFiles.length; i++) {
+      let fileName = this.uploadedFiles[i].name;
+      let relativePath: string = this.uploadedFiles[
+        i
+      ].webkitRelativePath.replace('/' + fileName, '');
+      relativePath = relativePath.replace('/', '\\');
+      let data = new FormData();
+      data.append('id', '0');
+      data.append('folderPath', this.folderPath + '\\' + relativePath);
+      data.append('creationDate', new Date(Date.now()).toISOString());
+      data.append('modificationDate', new Date(Date.now()).toISOString());
+      data.append('file', this.uploadedFiles[i]);
+      this.fileService.PostFile(data).subscribe((res) => {
+        this.filesInfo.push(res);
+        // Update the local data when the last file has been uploaded
+        if (i == this.uploadedFiles.length - 1) {
+          this.uploadedFiles = [];
+          this.updateFilesList();
+        }
+      });
+    }
   }
 }
