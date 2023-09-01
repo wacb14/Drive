@@ -13,6 +13,8 @@ export class FilesListComponent implements OnInit {
   filesInfo: Array<any> = [];
   uploadedFiles: Array<File> = [];
 
+  // Visual and functional vars
+
   constructor(private fileService: FileService) {}
 
   ngOnInit(): void {
@@ -22,6 +24,7 @@ export class FilesListComponent implements OnInit {
       this.updateFilesList();
     });
   }
+
   updateMenuNav() {
     this.fileService.updatePath.emit(this.folderPath);
   }
@@ -56,7 +59,7 @@ export class FilesListComponent implements OnInit {
   }
   updateFilesList() {
     this.fileService.GetFolderContent(this.folderPath).subscribe((res) => {
-      // Always go first
+      // Always goes first
       this.filesInfo = res.files;
       this.filesList = [];
 
@@ -103,6 +106,14 @@ export class FilesListComponent implements OnInit {
   }
   openInputFile(fileInput: HTMLInputElement) {
     fileInput.click();
+  }
+  makeChkBoxVisible(index:number){
+    let chkb = <HTMLInputElement> document.getElementById('chkb-'+index);
+    chkb.classList.remove('hidden');
+  }
+  makeChkBoxInvisible(index:number){
+    let chkb = <HTMLInputElement> document.getElementById('chkb-'+index);
+    chkb.classList.add('hidden');
   }
   captureFiles(event: any) {
     this.uploadedFiles = event.target.files;

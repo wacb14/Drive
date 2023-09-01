@@ -8,3 +8,7 @@
 .hidden{
     display: none;
 }
+.name-cell{
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

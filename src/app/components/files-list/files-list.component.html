@@ -56,7 +56,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="col fw-bold py-3 bg-light"></div>
+    <div class="col-1 fw-bold py-3 bg-light"></div>
+    <div class="col-1 fw-bold py-3 bg-light"></div>
     <div class="col fw-bold py-3 bg-light">Name</div>
     <div class="col fw-bold py-3 bg-light">Type</div>
     <div class="col fw-bold py-3 bg-light">Creation Date</div>
@@ -69,14 +70,23 @@
     <div
       class="col-12 line"
       [ngClass]="{ folder: isFolder(file) }"
-      (click)="navigateToFolder(i)"
+      (dblclick)="navigateToFolder(i)"
+      (mouseover)="makeChkBoxVisible(i)"
+      (mouseout)="makeChkBoxInvisible(i)"
     >
       <div class="row">
-        <div class="col text-center">
+        <div class="col-1 text-center">
+          <input
+            class="form-check-input hidden"
+            type="checkbox"
+            [id]="'chkb-'+i"
+          />
+        </div>
+        <div class="col-1 text-center">
           <i class="bi bi-folder-fill" *ngIf="isFolder(file)"></i>
           <i class="bi bi-file-earmark" *ngIf="!isFolder(file)"></i>
         </div>
-        <div class="col">{{ file.name }}</div>
+        <div class="col name-cell">{{ file.name }}</div>
         <div class="col">{{ file.extension }}</div>
         <div class="col">
           {{
