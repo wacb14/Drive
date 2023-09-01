@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row py-3" *ngIf="selected != 0">
-    <app-tool-bar></app-tool-bar>
+    <app-tool-bar [selected]="selected" (action)="receiveAction($event)"></app-tool-bar>
   </div>
-  <div class="row" *ngIf="selected == 0">
+  <div class="row py-3" *ngIf="selected == 0">
     <div class="col-1 text-start">
       <div class="dropdown">
         <button
@@ -98,7 +98,7 @@
     </div>
   </div>
   <div class="row" (click)="navigatePreviusFolder()">
-    <div class="col fw-bold text-center fs-5 line folder">...</div>
+    <div class="col fw-bold text-center fs-5 line folder"><i class="bi bi-arrow-return-left"></i></div>
   </div>
   <div class="row" *ngFor="let file of filesList; let i = index">
     <div

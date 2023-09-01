@@ -24,3 +24,10 @@
     background-color: rgb(155, 155, 155);
     cursor: pointer;
 }
+.dropdown-item{
+    cursor: pointer;
+}
+.form-check-input{
+    border-color: rgb(125, 125, 125);
+    border-radius: 50%;
+}

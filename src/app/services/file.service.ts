@@ -9,13 +9,22 @@ import { environment } from 'src/environments/environment.dev';
 export class FileService {
   updatePath = new EventEmitter<string>();
   updateFilesList = new EventEmitter<string>();
+
   constructor(private http: HttpClient) {}
+
   GetFolderContent(folderPath: string): Observable<any> {
     return this.http.get<any>(
       environment.apiURL + '/File/GetFolderContent?folderPath=' + folderPath
     );
   }
+
   PostFile(fileInfo: FormData): Observable<any> {
     return this.http.post<any>(environment.apiURL + '/File/PostFile', fileInfo);
+  }
+
+  DeleteFile(id: number): Observable<number> {
+    return this.http.delete<number>(
+      environment.apiURL + '/File/DeleteFile?id=' + id
+    );
   }
 }

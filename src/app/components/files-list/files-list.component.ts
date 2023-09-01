@@ -80,6 +80,8 @@ export class FilesListComponent implements OnInit {
       }
       this.updateMenuNav();
     });
+    this.universalChkBox = false;
+    this.selected = 0;
   }
   lookForItemInfoByName(name: string) {
     let i = 0,
@@ -190,6 +192,7 @@ export class FilesListComponent implements OnInit {
       this.filesList[index].checked = true;
       this.selected++;
     }
+    if (this.selected == this.filesList.length) this.universalChkBox = true;
   }
   selectAllRows() {
     if (this.universalChkBox) {
@@ -204,6 +207,32 @@ export class FilesListComponent implements OnInit {
       });
       this.universalChkBox = true;
       this.selected = this.filesList.length;
+    }
+  }
+  getReceivers() {
+    let receivers: Array<Item> = [];
+    this.filesList.forEach((file) => {
+      if (file.checked) receivers.push(file);
+    });
+    return receivers;
+  }
+  receiveAction(action: number) {
+    let receivers = this.getReceivers();
+    for (let i = 0; i < receivers.length; i++) {
+      let receiver = receivers[i];
+      switch (action) {
+        // Delete Case
+        case 0:
+          this.fileService.DeleteFile(receiver.id).subscribe((res) => {
+            if (res != -1) {
+              // Show toast or similar in the future
+              console.log('Item with id ' + res + ' deleted');
+            }
+            // Refresh on the last element
+            if (i == receivers.length - 1) this.updateFilesList();
+          });
+          break;
+      }
     }
   }
 }
