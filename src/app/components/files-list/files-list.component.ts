@@ -17,6 +17,7 @@ export class FilesListComponent implements OnInit {
   // Visual and functional vars
   sorts: Array<boolean> = [true, true, true, true];
   selected: number = 0;
+  universalChkBox = false;
 
   constructor(private fileService: FileService, private sortPipe: SortPipe) {}
 
@@ -188,6 +189,21 @@ export class FilesListComponent implements OnInit {
     } else {
       this.filesList[index].checked = true;
       this.selected++;
+    }
+  }
+  selectAllRows() {
+    if (this.universalChkBox) {
+      this.filesList.forEach((file) => {
+        file.checked = false;
+      });
+      this.universalChkBox = false;
+      this.selected = 0;
+    } else {
+      this.filesList.forEach((file) => {
+        file.checked = true;
+      });
+      this.universalChkBox = true;
+      this.selected = this.filesList.length;
     }
   }
 }

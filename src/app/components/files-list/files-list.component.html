@@ -59,7 +59,14 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-1 fw-bold py-3 bg-light"></div>
+    <div class="col-1 fw-bold py-3 bg-light text-center">
+      <input
+            class="form-check-input"
+            type="checkbox"
+            [checked]="universalChkBox"
+            (change)="selectAllRows()"
+          />
+    </div>
     <div class="col-1 fw-bold py-3 bg-light"></div>
     <div class="col fw-bold py-3 bg-light">
       <div class="header" (click)="sortFiles(0)">
