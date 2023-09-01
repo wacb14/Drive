@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row py-3" *ngIf="selected != 0">
-    <app-tool-bar [selected]="selected" (action)="receiveAction($event)"></app-tool-bar>
+    <app-tool-bar [selected]="selected" (action)="receiveAction($event)" (close)="closeToolBar($event)"></app-tool-bar>
   </div>
   <div class="row py-3" *ngIf="selected == 0">
     <div class="col-1 text-start">

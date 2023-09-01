@@ -8,8 +8,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ToolBarComponent {
   @Input() selected: number = 0;
   @Output() action = new EventEmitter<number>();
+  @Output() close = new EventEmitter<number>();
 
   sendAction(index:number){
     this.action.emit(index);
+  }
+  closeToolBar(){
+    this.close.emit(0);
   }
 }

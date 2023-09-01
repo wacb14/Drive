@@ -235,4 +235,13 @@ export class FilesListComponent implements OnInit {
       }
     }
   }
+  closeToolBar(close: number) {
+    if(this.universalChkBox){
+      this.selectAllRows();
+    }
+    else{
+      this.selectAllRows();
+      this.selectAllRows();
+    }
+  }
 }
