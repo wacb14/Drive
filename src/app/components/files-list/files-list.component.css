@@ -5,10 +5,22 @@
 .line:hover{
     background-color: rgb(207, 207, 207);
 }
+.selected{
+    background-color: rgb(207, 207, 207);
+}
 .hidden{
     display: none;
 }
 .name-cell{
     text-overflow: ellipsis;
     overflow: hidden;
+}
+.header{
+    border-radius: 15px;
+    width: fit-content;
+    padding: 5px;
+}
+.header:hover{
+    background-color: rgb(155, 155, 155);
+    cursor: pointer;
 }

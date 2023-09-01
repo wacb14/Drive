@@ -3,6 +3,7 @@ export enum ItemType {
   Folder = 'folder',
 }
 export class Item {
+  checked: boolean;
   name: string;
   type: ItemType;
   id: number;
@@ -19,6 +20,7 @@ export class Item {
     creationDate: Date,
     modificationDate: Date
   ) {
+    this.checked = false;
     this.name = name;
     this.type = type;
     this.id = id;

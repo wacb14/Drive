@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SortPipe } from 'src/app/helpers/pipes/sort.pipe';
 import { Item, ItemType } from 'src/app/models/item.model';
 import { FileService } from 'src/app/services/file.service';
 
@@ -14,8 +15,9 @@ export class FilesListComponent implements OnInit {
   uploadedFiles: Array<File> = [];
 
   // Visual and functional vars
+  sorts: Array<boolean> = [true, true, true, true];
 
-  constructor(private fileService: FileService) {}
+  constructor(private fileService: FileService, private sortPipe: SortPipe) {}
 
   ngOnInit(): void {
     this.updateFilesList();
@@ -23,6 +25,13 @@ export class FilesListComponent implements OnInit {
       this.folderPath = path;
       this.updateFilesList();
     });
+  }
+
+  changeSortDirection(index: number) {
+    for (let i = 0; i < this.sorts.length; i++) {
+      if (i == index) this.sorts[i] = this.sorts[index] ? false : true;
+      else this.sorts[i] = true;
+    }
   }
 
   updateMenuNav() {
@@ -107,12 +116,12 @@ export class FilesListComponent implements OnInit {
   openInputFile(fileInput: HTMLInputElement) {
     fileInput.click();
   }
-  makeChkBoxVisible(index:number){
-    let chkb = <HTMLInputElement> document.getElementById('chkb-'+index);
+  makeChkBoxVisible(index: number) {
+    let chkb = <HTMLInputElement>document.getElementById('chkb-' + index);
     chkb.classList.remove('hidden');
   }
-  makeChkBoxInvisible(index:number){
-    let chkb = <HTMLInputElement> document.getElementById('chkb-'+index);
+  makeChkBoxInvisible(index: number) {
+    let chkb = <HTMLInputElement>document.getElementById('chkb-' + index);
     chkb.classList.add('hidden');
   }
   captureFiles(event: any) {
@@ -157,5 +166,18 @@ export class FilesListComponent implements OnInit {
         }
       });
     }
+  }
+  sortFiles(index: number) {
+    let attributes = ['name', 'extension', 'creationDate', 'modificationDate'];
+    this.filesList = this.sortPipe.transform(
+      this.filesList,
+      this.sorts[index] ? 'desc' : 'asc',
+      attributes[index]
+    );
+    this.changeSortDirection(index);
+  }
+  isChecked(index:number){
+    let chkb = <HTMLInputElement>document.getElementById('chkb-' + index);
+    return chkb.checked;
   }
 }

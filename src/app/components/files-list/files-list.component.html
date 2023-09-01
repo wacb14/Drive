@@ -58,10 +58,34 @@
   <div class="row">
     <div class="col-1 fw-bold py-3 bg-light"></div>
     <div class="col-1 fw-bold py-3 bg-light"></div>
-    <div class="col fw-bold py-3 bg-light">Name</div>
-    <div class="col fw-bold py-3 bg-light">Type</div>
-    <div class="col fw-bold py-3 bg-light">Creation Date</div>
-    <div class="col fw-bold py-3 bg-light">Modification Date</div>
+    <div class="col fw-bold py-3 bg-light">
+      <div class="header" (click)="sortFiles(0)">
+        Name
+        <i class="bi bi-caret-up-fill" *ngIf="sorts[0]"></i>
+        <i class="bi bi-caret-down-fill" *ngIf="!sorts[0]"></i>
+      </div>
+    </div>
+    <div class="col fw-bold py-3 bg-light">
+      <div class="header" (click)="sortFiles(1)">
+        Type
+        <i class="bi bi-caret-up-fill" *ngIf="sorts[1]"></i>
+        <i class="bi bi-caret-down-fill" *ngIf="!sorts[1]"></i>
+      </div>
+    </div>
+    <div class="col fw-bold py-3 bg-light">
+      <div class="header" (click)="sortFiles(2)">
+        Creation Date
+        <i class="bi bi-caret-up-fill" *ngIf="sorts[2]"></i>
+        <i class="bi bi-caret-down-fill" *ngIf="!sorts[2]"></i>
+      </div>
+    </div>
+    <div class="col fw-bold py-3 bg-light">
+      <div class="header" (click)="sortFiles(3)">
+        Modification Date
+        <i class="bi bi-caret-up-fill" *ngIf="sorts[3]"></i>
+        <i class="bi bi-caret-down-fill" *ngIf="!sorts[3]"></i>
+      </div>
+    </div>
   </div>
   <div class="row" (click)="navigatePreviusFolder()">
     <div class="col fw-bold text-center fs-5 line folder">...</div>
@@ -69,17 +93,18 @@
   <div class="row" *ngFor="let file of filesList; let i = index">
     <div
       class="col-12 line"
-      [ngClass]="{ folder: isFolder(file) }"
+      [ngClass]="{ folder: isFolder(file), selected: filesList[i].checked }"
       (dblclick)="navigateToFolder(i)"
-      (mouseover)="makeChkBoxVisible(i)"
-      (mouseout)="makeChkBoxInvisible(i)"
     >
       <div class="row">
         <div class="col-1 text-center">
           <input
-            class="form-check-input hidden"
+            class="form-check-input"
             type="checkbox"
-            [id]="'chkb-'+i"
+            [checked]="file.checked"
+            (change)="
+              filesList[i].checked = filesList[i].checked ? false : true
+            "
           />
         </div>
         <div class="col-1 text-center">
