@@ -1,5 +1,8 @@
 <div class="container">
-  <div class="row">
+  <div class="row py-3" *ngIf="selected != 0">
+    <app-tool-bar></app-tool-bar>
+  </div>
+  <div class="row" *ngIf="selected == 0">
     <div class="col-1 text-start">
       <div class="dropdown">
         <button
@@ -102,9 +105,7 @@
             class="form-check-input"
             type="checkbox"
             [checked]="file.checked"
-            (change)="
-              filesList[i].checked = filesList[i].checked ? false : true
-            "
+            (change)="selectRow(i)"
           />
         </div>
         <div class="col-1 text-center">

@@ -1,0 +1,17 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+.icon{
+    border-radius: 15px;
+    width: fit-content;
+    padding: 3px 15px;
+    cursor: pointer;
+}
+.icon-card{
+    border: solid black 1px;
+    border-radius: 15px;
+    width: fit-content;
+    padding: 3px 15px;
+    cursor: pointer;
+}
+.icon:hover,.icon-card:hover{
+    background-color: rgb(170, 170, 170);
+}

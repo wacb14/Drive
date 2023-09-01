@@ -16,6 +16,7 @@ export class FilesListComponent implements OnInit {
 
   // Visual and functional vars
   sorts: Array<boolean> = [true, true, true, true];
+  selected: number = 0;
 
   constructor(private fileService: FileService, private sortPipe: SortPipe) {}
 
@@ -176,8 +177,17 @@ export class FilesListComponent implements OnInit {
     );
     this.changeSortDirection(index);
   }
-  isChecked(index:number){
+  isChecked(index: number) {
     let chkb = <HTMLInputElement>document.getElementById('chkb-' + index);
     return chkb.checked;
+  }
+  selectRow(index: number) {
+    if (this.filesList[index].checked) {
+      this.filesList[index].checked = false;
+      this.selected--;
+    } else {
+      this.filesList[index].checked = true;
+      this.selected++;
+    }
   }
 }
