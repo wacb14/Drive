@@ -193,6 +193,7 @@ export class FilesListComponent implements OnInit {
       this.selected++;
     }
     if (this.selected == this.filesList.length) this.universalChkBox = true;
+    if (this.selected == 0) this.universalChkBox = false;
   }
   selectAllRows() {
     if (this.universalChkBox) {
