@@ -182,10 +182,6 @@ export class FilesListComponent implements OnInit {
     );
     this.changeSortDirection(index);
   }
-  isChecked(index: number) {
-    let chkb = <HTMLInputElement>document.getElementById('chkb-' + index);
-    return chkb.checked;
-  }
   selectRow(index: number) {
     if (this.filesList[index].checked) {
       this.filesList[index].checked = false;
@@ -195,7 +191,7 @@ export class FilesListComponent implements OnInit {
       this.selected++;
     }
     if (this.selected == this.filesList.length) this.universalChkBox = true;
-    if (this.selected == 0) this.universalChkBox = false;
+    else this.universalChkBox = false;
   }
   selectAllRows() {
     if (this.universalChkBox) {
