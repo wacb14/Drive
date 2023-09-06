@@ -9,7 +9,7 @@ import { FileService } from 'src/app/services/file.service';
   styleUrls: ['./files-list.component.css'],
 })
 export class FilesListComponent implements OnInit {
-  folderPath = 'elefantes\\elefante1';
+  folderPath = '';
   filesList: Array<Item> = [];
   filesInfo: Array<any> = [];
   uploadedFiles: Array<File> = [];
@@ -103,7 +103,9 @@ export class FilesListComponent implements OnInit {
   // Adds the new path only if it's a folder
   navigateToFolder(i: number) {
     if (this.isFolder(this.filesList[i])) {
-      this.folderPath = this.folderPath + '\\' + this.filesList[i].name;
+      if (this.folderPath != '')
+        this.folderPath = this.folderPath + '\\' + this.filesList[i].name;
+      else this.folderPath = this.filesList[i].name;
       this.updateFilesList();
     }
   }
@@ -236,10 +238,9 @@ export class FilesListComponent implements OnInit {
     }
   }
   closeToolBar(close: number) {
-    if(this.universalChkBox){
+    if (this.universalChkBox) {
       this.selectAllRows();
-    }
-    else{
+    } else {
       this.selectAllRows();
       this.selectAllRows();
     }
