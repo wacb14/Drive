@@ -141,10 +141,10 @@ export class FilesListComponent implements OnInit {
       data.append('file', this.uploadedFiles[i]);
       this.fileService.PostFile(data).subscribe((res) => {
         this.filesInfo.push(res);
-        // Update the local data when the last file has been uploaded
+        // IN THE FUTURE FIX THIS CAUSE IT REFRESHES ONCE WITH EACH ELEMENT ADDED
+        this.updateFilesList();
         if (i == this.uploadedFiles.length - 1) {
           this.uploadedFiles = [];
-          this.updateFilesList();
         }
       });
     }
@@ -157,18 +157,20 @@ export class FilesListComponent implements OnInit {
         i
       ].webkitRelativePath.replace('/' + fileName, '');
       relativePath = relativePath.replace('/', '\\');
+      if (this.folderPath != '')
+        relativePath = this.folderPath + '\\' + relativePath;
       let data = new FormData();
       data.append('id', '0');
-      data.append('folderPath', this.folderPath + '\\' + relativePath);
+      data.append('folderPath', relativePath);
       data.append('creationDate', new Date(Date.now()).toISOString());
       data.append('modificationDate', new Date(Date.now()).toISOString());
       data.append('file', this.uploadedFiles[i]);
       this.fileService.PostFile(data).subscribe((res) => {
         this.filesInfo.push(res);
-        // Update the local data when the last file has been uploaded
+        // IN THE FUTURE FIX THIS CAUSE IT REFRESHES ONCE WITH EACH ELEMENT ADDED
+        this.updateFilesList();
         if (i == this.uploadedFiles.length - 1) {
           this.uploadedFiles = [];
-          this.updateFilesList();
         }
       });
     }
@@ -226,9 +228,9 @@ export class FilesListComponent implements OnInit {
             if (res != -1) {
               // Show toast or similar in the future
               console.log('Item with id ' + res + ' deleted');
+              // IN THE FUTURE FIX THIS CAUSE IT REFRESHES ONCE WITH EACH ELEMENT DELETED
+              this.updateFilesList();
             }
-            // Refresh on the last element
-            if (i == receivers.length - 1) this.updateFilesList();
           });
           break;
       }
