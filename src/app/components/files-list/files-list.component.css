@@ -1,33 +1,33 @@
 @import "bootstrap-icons/font/bootstrap-icons.css";
-.folder:hover{
-    cursor: pointer;
+.folder:hover {
+  cursor: pointer;
 }
-.line:hover{
-    background-color: rgb(207, 207, 207);
+.line:hover {
+  background-color: rgb(207, 207, 207);
 }
-.selected{
-    background-color: rgb(207, 207, 207);
+.selected {
+  background-color: rgb(207, 207, 207);
 }
-.hidden{
-    display: none;
+.hidden {
+  display: none;
 }
-.name-cell{
-    text-overflow: ellipsis;
-    overflow: hidden;
+.name-cell {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
-.header{
-    border-radius: 15px;
-    width: fit-content;
-    padding: 5px;
+.header {
+  border-radius: 15px;
+  width: fit-content;
+  padding: 5px;
 }
-.header:hover{
-    background-color: rgb(155, 155, 155);
-    cursor: pointer;
+.header:hover {
+  background-color: rgb(155, 155, 155);
+  cursor: pointer;
 }
-.dropdown-item{
-    cursor: pointer;
+.dropdown-item {
+  cursor: pointer;
 }
-.form-check-input{
-    border-color: rgb(125, 125, 125);
-    border-radius: 50%;
+.form-check-input {
+  border-color: rgb(125, 125, 125);
+  border-radius: 50%;
 }

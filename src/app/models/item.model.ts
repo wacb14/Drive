@@ -18,7 +18,7 @@ export class Item {
     extension: string,
     folderPath: string,
     creationDate: Date,
-    modificationDate: Date
+    modificationDate: Date,
   ) {
     this.checked = false;
     this.name = name;

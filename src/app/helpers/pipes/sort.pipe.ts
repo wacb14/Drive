@@ -4,14 +4,14 @@ export type SortOrder = 'asc' | 'desc';
 
 @Injectable()
 @Pipe({
-    name: 'sort',
-    standalone: false
+  name: 'sort',
+  standalone: false,
 })
 export class SortPipe implements PipeTransform {
   transform(
     values: any[],
     sortOrder: SortOrder | string = 'asc',
-    sortKey?: string
+    sortKey?: string,
   ): any {
     sortOrder = sortOrder && (sortOrder.toLowerCase() as any);
 
@@ -39,7 +39,8 @@ export class SortPipe implements PipeTransform {
         .filter((item) => typeof item[sortKey] === 'object')
         .sort((a, b) => {
           if (a[sortKey].toISOString() < b[sortKey].toISOString()) return -1;
-          else if (a[sortKey].toISOString() > b[sortKey].toISOString()) return 1;
+          else if (a[sortKey].toISOString() > b[sortKey].toISOString())
+            return 1;
           else return 0;
         });
     }

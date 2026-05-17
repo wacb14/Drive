@@ -15,7 +15,7 @@ export class FileService {
   GetFolderContent(folderPath: string): Observable<any> {
     if (folderPath == '') folderPath = 'root';
     return this.http.get<any>(
-      environment.apiURL + '/File/GetFolderContent?folderPath=' + folderPath
+      environment.apiURL + '/File/GetFolderContent?folderPath=' + folderPath,
     );
   }
 
@@ -26,7 +26,7 @@ export class FileService {
 
   DeleteFile(id: number): Observable<number> {
     return this.http.delete<number>(
-      environment.apiURL + '/File/DeleteFile?id=' + id
+      environment.apiURL + '/File/DeleteFile?id=' + id,
     );
   }
 }

@@ -4,10 +4,10 @@ import { Item, ItemType } from 'src/app/models/item.model';
 import { FileService } from 'src/app/services/file.service';
 
 @Component({
-    selector: 'app-files-list',
-    templateUrl: './files-list.component.html',
-    styleUrls: ['./files-list.component.css'],
-    standalone: false
+  selector: 'app-files-list',
+  templateUrl: './files-list.component.html',
+  styleUrls: ['./files-list.component.css'],
+  standalone: false,
 })
 export class FilesListComponent implements OnInit {
   folderPath = '';
@@ -20,7 +20,10 @@ export class FilesListComponent implements OnInit {
   selected: number = 0;
   universalChkBox = false;
 
-  constructor(private fileService: FileService, private sortPipe: SortPipe) {}
+  constructor(
+    private fileService: FileService,
+    private sortPipe: SortPipe,
+  ) {}
 
   ngOnInit(): void {
     this.updateFilesList();
@@ -53,7 +56,7 @@ export class FilesListComponent implements OnInit {
         this.filesInfo[index].extension,
         this.filesInfo[index].folderPath,
         new Date(this.filesInfo[index].creationDate),
-        new Date(this.filesInfo[index].modificationDate)
+        new Date(this.filesInfo[index].modificationDate),
       );
     } else {
       let name = item.replace('.dir', '');
@@ -64,7 +67,7 @@ export class FilesListComponent implements OnInit {
         '',
         '',
         new Date('2023-08-26T03:48:06.526'),
-        new Date('2023-08-26T03:49:06.527')
+        new Date('2023-08-26T03:49:06.527'),
       );
     }
     return itemMod;
@@ -181,7 +184,7 @@ export class FilesListComponent implements OnInit {
     this.filesList = this.sortPipe.transform(
       this.filesList,
       this.sorts[index] ? 'desc' : 'asc',
-      attributes[index]
+      attributes[index],
     );
     this.changeSortDirection(index);
   }
