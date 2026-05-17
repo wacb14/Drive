@@ -18,6 +18,7 @@ export class FilesListComponent implements OnInit {
   sorts: Array<boolean> = [true, true, true, true];
   selected: number = 0;
   universalChkBox = false;
+  confirmationNewFolder = 'close'; //(close - error)
 
   constructor(private fileService: FileService, private sortPipe: SortPipe) {}
 
@@ -242,6 +243,30 @@ export class FilesListComponent implements OnInit {
     } else {
       this.selectAllRows();
       this.selectAllRows();
+    }
+  }
+  verifyExistence(name: string, extension: string) {
+    let index = this.filesList.findIndex(
+      (file) => file.name + file.extension == name + extension
+    );
+    return index;
+  }
+  receiveFolderName(name: string) {
+    let index = this.verifyExistence(name, '');
+    if (index != -1) {
+      // The folder already exists
+      this.confirmationNewFolder = 'error';
+    } else {
+      // Create new folder
+      let path;
+      if (this.folderPath != '') path = this.folderPath + '\\' + name;
+      else path = name;
+      this.fileService.CreateEmptyFolder(path).subscribe((res) => {
+        if (res) {
+          this.confirmationNewFolder = 'close';
+          this.updateFilesList();
+        }
+      });
     }
   }
 }

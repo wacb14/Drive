@@ -29,4 +29,10 @@ export class FileService {
       environment.apiURL + '/File/DeleteFile?id=' + id
     );
   }
+  CreateEmptyFolder(folderName: string): Observable<boolean> {
+    return this.http.post<boolean>(
+      environment.apiURL + '/File/CreateEmptyFolder?folderPath=' + folderName,
+      null
+    );
+  }
 }
