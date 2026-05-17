@@ -4,9 +4,10 @@ import { Item, ItemType } from 'src/app/models/item.model';
 import { FileService } from 'src/app/services/file.service';
 
 @Component({
-  selector: 'app-files-list',
-  templateUrl: './files-list.component.html',
-  styleUrls: ['./files-list.component.css'],
+    selector: 'app-files-list',
+    templateUrl: './files-list.component.html',
+    styleUrls: ['./files-list.component.css'],
+    standalone: false
 })
 export class FilesListComponent implements OnInit {
   folderPath = '';

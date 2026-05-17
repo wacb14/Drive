@@ -1,141 +1,169 @@
 <div class="container">
-  <div class="row py-3" *ngIf="selected != 0">
-    <app-tool-bar [selected]="selected" (action)="receiveAction($event)" (close)="closeToolBar($event)"></app-tool-bar>
-  </div>
-  <div class="row py-3" *ngIf="selected == 0">
-    <div class="col-1 text-start">
-      <div class="dropdown">
-        <button
-          type="button"
-          class="btn btn-primary fw-bold dropdown-toggle"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="bi bi-plus"></i> New
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Directory</a></li>
-        </ul>
-      </div>
+  @if (selected != 0) {
+    <div class="row py-3">
+      <app-tool-bar [selected]="selected" (action)="receiveAction($event)" (close)="closeToolBar($event)"></app-tool-bar>
     </div>
-    <div class="col-1 text-start">
-      <div class="dropdown">
-        <button
-          type="button"
-          class="btn btn-secondary fw-bold dropdown-toggle"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="bi bi-arrow-bar-up"></i> Load
-        </button>
-        <ul class="dropdown-menu">
-          <li>
-            <a class="dropdown-item" (click)="openInputFile(inputFile)"
-              >Files</a
+  }
+  @if (selected == 0) {
+    <div class="row py-3">
+      <div class="col-1 text-start">
+        <div class="dropdown">
+          <button
+            type="button"
+            class="btn btn-primary fw-bold dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
             >
-          </li>
-          <li>
-            <a class="dropdown-item" (click)="openInputFile(inputFileDirectory)"
-              >Directory</a
+            <i class="bi bi-plus"></i> New
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Directory</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-1 text-start">
+        <div class="dropdown">
+          <button
+            type="button"
+            class="btn btn-secondary fw-bold dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
             >
-          </li>
-        </ul>
-      </div>
-      <input
-        type="file"
-        class="hidden"
-        #inputFile
-        multiple
-        (change)="captureFiles($event)"
-      />
-      <input
-        type="file"
-        class="hidden"
-        #inputFileDirectory
-        multiple
-        webkitdirectory
-        (change)="captureDirectory($event)"
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-1 fw-bold py-3 bg-light text-center">
-      <input
-            class="form-check-input"
-            type="checkbox"
-            [checked]="universalChkBox"
-            (change)="selectAllRows()"
-          />
-    </div>
-    <div class="col-1 fw-bold py-3 bg-light"></div>
-    <div class="col fw-bold py-3 bg-light">
-      <div class="header" (click)="sortFiles(0)">
-        Name
-        <i class="bi bi-caret-up-fill" *ngIf="sorts[0]"></i>
-        <i class="bi bi-caret-down-fill" *ngIf="!sorts[0]"></i>
-      </div>
-    </div>
-    <div class="col fw-bold py-3 bg-light">
-      <div class="header" (click)="sortFiles(1)">
-        Type
-        <i class="bi bi-caret-up-fill" *ngIf="sorts[1]"></i>
-        <i class="bi bi-caret-down-fill" *ngIf="!sorts[1]"></i>
-      </div>
-    </div>
-    <div class="col fw-bold py-3 bg-light">
-      <div class="header" (click)="sortFiles(2)">
-        Creation Date
-        <i class="bi bi-caret-up-fill" *ngIf="sorts[2]"></i>
-        <i class="bi bi-caret-down-fill" *ngIf="!sorts[2]"></i>
-      </div>
-    </div>
-    <div class="col fw-bold py-3 bg-light">
-      <div class="header" (click)="sortFiles(3)">
-        Modification Date
-        <i class="bi bi-caret-up-fill" *ngIf="sorts[3]"></i>
-        <i class="bi bi-caret-down-fill" *ngIf="!sorts[3]"></i>
-      </div>
-    </div>
-  </div>
-  <div class="row" (click)="navigatePreviusFolder()" *ngIf="folderPath!=''">
-    <div class="col fw-bold text-center fs-5 line folder"><i class="bi bi-arrow-return-left"></i></div>
-  </div>
-  <div class="row" *ngFor="let file of filesList; let i = index">
-    <div
-      class="col-12 line"
-      [ngClass]="{ folder: isFolder(file), selected: filesList[i].checked }"
-      (dblclick)="navigateToFolder(i)"
-    >
-      <div class="row">
-        <div class="col-1 text-center">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            [checked]="file.checked"
-            (change)="selectRow(i)"
-          />
-        </div>
-        <div class="col-1 text-center">
-          <i class="bi bi-folder-fill" *ngIf="isFolder(file)"></i>
-          <i class="bi bi-file-earmark" *ngIf="!isFolder(file)"></i>
-        </div>
-        <div class="col name-cell">{{ file.name }}</div>
-        <div class="col">{{ file.extension }}</div>
-        <div class="col">
-          {{
-            file.creationDate.toLocaleDateString() +
-              " - " +
-              file.creationDate.toLocaleTimeString()
-          }}
-        </div>
-        <div class="col">
-          {{
-            file.modificationDate.toLocaleDateString() +
-              " - " +
-              file.modificationDate.toLocaleTimeString()
-          }}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+            <i class="bi bi-arrow-bar-up"></i> Load
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" (click)="openInputFile(inputFile)"
+                >Files</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="openInputFile(inputFileDirectory)"
+                  >Directory</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <input
+              type="file"
+              class="hidden"
+              #inputFile
+              multiple
+              (change)="captureFiles($event)"
+              />
+              <input
+                type="file"
+                class="hidden"
+                #inputFileDirectory
+                multiple
+                webkitdirectory
+                (change)="captureDirectory($event)"
+                />
+              </div>
+            </div>
+          }
+          <div class="row">
+            <div class="col-1 fw-bold py-3 bg-light text-center">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [checked]="universalChkBox"
+                (change)="selectAllRows()"
+                />
+              </div>
+              <div class="col-1 fw-bold py-3 bg-light"></div>
+              <div class="col fw-bold py-3 bg-light">
+                <div class="header" (click)="sortFiles(0)">
+                  Name
+                  @if (sorts[0]) {
+                    <i class="bi bi-caret-up-fill"></i>
+                  }
+                  @if (!sorts[0]) {
+                    <i class="bi bi-caret-down-fill"></i>
+                  }
+                </div>
+              </div>
+              <div class="col fw-bold py-3 bg-light">
+                <div class="header" (click)="sortFiles(1)">
+                  Type
+                  @if (sorts[1]) {
+                    <i class="bi bi-caret-up-fill"></i>
+                  }
+                  @if (!sorts[1]) {
+                    <i class="bi bi-caret-down-fill"></i>
+                  }
+                </div>
+              </div>
+              <div class="col fw-bold py-3 bg-light">
+                <div class="header" (click)="sortFiles(2)">
+                  Creation Date
+                  @if (sorts[2]) {
+                    <i class="bi bi-caret-up-fill"></i>
+                  }
+                  @if (!sorts[2]) {
+                    <i class="bi bi-caret-down-fill"></i>
+                  }
+                </div>
+              </div>
+              <div class="col fw-bold py-3 bg-light">
+                <div class="header" (click)="sortFiles(3)">
+                  Modification Date
+                  @if (sorts[3]) {
+                    <i class="bi bi-caret-up-fill"></i>
+                  }
+                  @if (!sorts[3]) {
+                    <i class="bi bi-caret-down-fill"></i>
+                  }
+                </div>
+              </div>
+            </div>
+            @if (folderPath!='') {
+              <div class="row" (click)="navigatePreviusFolder()">
+                <div class="col fw-bold text-center fs-5 line folder"><i class="bi bi-arrow-return-left"></i></div>
+              </div>
+            }
+            @for (file of filesList; track file; let i = $index) {
+              <div class="row">
+                <div
+                  class="col-12 line"
+                  [ngClass]="{ folder: isFolder(file), selected: filesList[i].checked }"
+                  (dblclick)="navigateToFolder(i)"
+                  >
+                  <div class="row">
+                    <div class="col-1 text-center">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        [checked]="file.checked"
+                        (change)="selectRow(i)"
+                        />
+                      </div>
+                      <div class="col-1 text-center">
+                        @if (isFolder(file)) {
+                          <i class="bi bi-folder-fill"></i>
+                        }
+                        @if (!isFolder(file)) {
+                          <i class="bi bi-file-earmark"></i>
+                        }
+                      </div>
+                      <div class="col name-cell">{{ file.name }}</div>
+                      <div class="col">{{ file.extension }}</div>
+                      <div class="col">
+                        {{
+                        file.creationDate.toLocaleDateString() +
+                        " - " +
+                        file.creationDate.toLocaleTimeString()
+                        }}
+                      </div>
+                      <div class="col">
+                        {{
+                        file.modificationDate.toLocaleDateString() +
+                        " - " +
+                        file.modificationDate.toLocaleTimeString()
+                        }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>

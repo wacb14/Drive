@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-tool-bar',
-  templateUrl: './tool-bar.component.html',
-  styleUrls: ['./tool-bar.component.css'],
+    selector: 'app-tool-bar',
+    templateUrl: './tool-bar.component.html',
+    styleUrls: ['./tool-bar.component.css'],
+    standalone: false
 })
 export class ToolBarComponent {
   @Input() selected: number = 0;

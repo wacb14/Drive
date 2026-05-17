@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FileService } from 'src/app/services/file.service';
 
 @Component({
-  selector: 'app-menu-nav',
-  templateUrl: './menu-nav.component.html',
-  styleUrls: ['./menu-nav.component.css'],
+    selector: 'app-menu-nav',
+    templateUrl: './menu-nav.component.html',
+    styleUrls: ['./menu-nav.component.css'],
+    standalone: false
 })
 export class MenuNavComponent implements OnInit {
   path: Array<string> = [];
